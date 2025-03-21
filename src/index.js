@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const { PORT } = require('./config/server-config');
 const Apiroutes = require('./routes/index');
+const  Userservice  = require('./service/user-service');
 
 
 const setup = async()=>{

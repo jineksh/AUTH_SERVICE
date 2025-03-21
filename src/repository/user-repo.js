@@ -25,6 +25,33 @@ class userrepo{
         }
 
     }
+
+    async getbyid(userId){
+        try {
+            const user = await User.findByPk(userId);
+            return user;
+            
+        } catch (error) {
+            console.log('Something went wrong in fetch user by id'+error);
+            throw(error);
+        }
+    }
+
+    async getbyEmail(useremail){
+        try {
+            const user = await User.findOne({
+                where : {
+                    email : useremail
+                }
+            });
+            return user;
+            
+        } catch (error) {
+            console.log('Something went wrong in fetch user by email'+error);
+            throw(error);
+        }
+    }
+
 }
 
 

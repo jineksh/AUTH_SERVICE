@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 const bcrypt = require('bcrypt');
-const { use } = require('../routes');
+
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
