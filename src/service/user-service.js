@@ -38,6 +38,25 @@ class Userservice{
         }
     }
 
+    async isAuthenticated(token){
+        try{
+            const response = this.verifytoken(token);
+            if(!response){
+                throw('Token is expire or Error');
+            }
+            const user  = await this.repository.getbyid(response.id);
+            if(!user){
+                throw('USer delete');
+            }
+
+            return response.id;
+        }
+        catch(err){
+            console.log('Something went wrong in isAuthenticated process'+err);
+            throw(err);
+        }
+    }
+
     createtoken(useremail,userId){
         try {
             const token = jwt.sign({
@@ -69,6 +88,15 @@ class Userservice{
         } catch (error) {
             console.log('Something went wrong in password validation',error);
             throw(err);
+        }
+    }
+
+    async isAdmin(userid){
+        try {
+            return await this.repository.isAdmin(userid);
+        } catch (error) {
+            console.log('Something went wrong in isAdmin service',error);
+            throw(error);
         }
     }
 }

@@ -1,5 +1,5 @@
-const { Model } = require('sequelize');
-const { User } = require('../models/index');
+const { Model, where } = require('sequelize');
+const { User,Role } = require('../models/index');
 class userrepo{
 
 
@@ -48,6 +48,22 @@ class userrepo{
             
         } catch (error) {
             console.log('Something went wrong in fetch user by email'+error);
+            throw(error);
+        }
+    }
+
+    async isAdmin(userid){
+        try {
+            const user = await User.findByPk(userid);
+            const adminrole = await Role.findOne({
+                where:{
+                    name : 'ADMIN'
+                }
+            });
+            const response = await user.hasRole(adminrole);
+            return response;
+        } catch (error) {
+            console.log('Something went wrong in isAdmin'+error);
             throw(error);
         }
     }

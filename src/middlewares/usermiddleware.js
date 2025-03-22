@@ -12,6 +12,17 @@ const validation = (req,res,next)=>{
     }
 }
 
+
+const validrole = (req,res,next)=>{
+    if(!req.body.id){
+        return res.status(401).json({
+            data : {},
+            message : 'Please Send userID',
+            success : false
+        })
+    }
+    next();
+} 
 module.exports = {
-    validation
+    validation,validrole
 }
